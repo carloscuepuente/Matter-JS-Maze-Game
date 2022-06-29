@@ -74,6 +74,18 @@ Render.run(render)
 // y corremos el runeer que es el que coordina las cosas de un estado A a un estado B
 Runner.run(Runner.create(), engine)
 
+const mouse = Mouse.create(render.canvas),
+    mouseConstraint = MouseConstraint.create(engine, {
+        mouse: mouse,
+        constraint: {
+            stiffness: 0.2,
+            render: {
+                visible: false
+            }
+        }
+    })
+
+World.add(world, mouseConstraint)
 
 
 
@@ -356,18 +368,7 @@ Events.on(engine, "collisionStart", (event) => {
             })
             Body.setVelocity(ball, { x: ball.velocity.x = 0, y: ball.velocity.y = 0 })
 
-            const mouse = Mouse.create(render.canvas),
-                mouseConstraint = MouseConstraint.create(engine, {
-                    mouse: mouse,
-                    constraint: {
-                        stiffness: 0.2,
-                        render: {
-                            visible: false
-                        }
-                    }
-                })
 
-            World.add(world, mouseConstraint)
 
             document.querySelector(".win-message").classList.remove("hidden");
         }
